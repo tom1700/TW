@@ -18,7 +18,7 @@ public class Monitor {
 			} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		if(toTake==0)
-			notify();
+			notifyAll();
 		System.out.println("Producer puts "+toTake);
 		buffer.set(putIndex,element);
 		putIndex = (putIndex+1)%N;
@@ -31,7 +31,7 @@ public class Monitor {
 			}catch (InterruptedException e) {e.printStackTrace();}
 		}
 		if(toTake==N)
-			notify();
+			notifyAll();
 		System.out.println("Consumer takes "+toTake);
 		Object result = buffer.get(takeIndex);
 		takeIndex = (takeIndex+1)%N;
