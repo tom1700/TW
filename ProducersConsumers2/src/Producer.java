@@ -22,7 +22,7 @@ public class Producer extends Thread{
 		for(int i=0;i<1000;i++){
 			try {
 				arr = drawArray();
-				buffer.put(drawArray());
+				buffer.put(arr);
 				System.out.println(i + " Producer puts:"+arr.size());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
