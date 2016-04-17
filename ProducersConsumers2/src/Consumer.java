@@ -14,7 +14,7 @@ public class Consumer extends Thread{
 		for(int i=0;i<1000;i++){
 			try {
 				num = rand.nextInt(maxSize)+1;
-				buffer.take(rand.nextInt(maxSize)+1);
+				buffer.take(num);
 				System.out.println(i+" Consumer takes:"+num);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
