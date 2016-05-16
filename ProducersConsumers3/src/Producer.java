@@ -1,9 +1,14 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Producer extends Thread{
 	private Monitor buffer;
 	private int maxSize;
+	private Instant start;
+	private Instant end;
+	
 	Random rand;
 	public Producer(Monitor buffer,int maxSize){
 		this.buffer = buffer;
@@ -22,11 +27,13 @@ public class Producer extends Thread{
 		for(;;){
 			try {
 				arr = drawArray();
+				start = Instant.now();
 				buffer.put(arr);
+				end = Instant.now();
+				System.out.print(Duration.between(start, end).getNano()+" ");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		//System.out.println("Producer finished putting");
 	}
 }

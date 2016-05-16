@@ -40,7 +40,6 @@ public class Monitor {
 					putIndex = (putIndex+1)%N;
 					toTake++;
 				}
-				//System.out.println("Left:"+toTake);
 				consumers.signal();
 			}finally{
 				lock.unlock();
@@ -63,7 +62,6 @@ public class Monitor {
 					takeIndex = (takeIndex+1)%N;
 					toTake--;
 				}
-				System.out.println("Left:"+toTake);
 				producers.signal();
 				return result;
 			}finally{

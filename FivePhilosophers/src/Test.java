@@ -8,8 +8,7 @@ public class Test {
 			forks[i]=new Fork();
 		}
 		for(int i=0;i<5;i++){
-			(philosophers[i] = new Philosopher(i,forks,b)).start();
-			
+			(philosophers[i] = new Philosopher(i,forks,b)).start();	
 		}
 	}
 }

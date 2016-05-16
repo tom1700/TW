@@ -6,23 +6,35 @@ import java.io.PrintStream;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
-public class Test {
-	public static void main(String[]args){
-		boolean calculate=true;
-		if(!calculate){
-			Monitor m = new Monitor(1000);
+public class Main {
+	public static void main(String args[]){
+			ArrayList<Producer>producers;
+			ArrayList<Consumer>consumers;
+			Buffer buffer = new Buffer(1000);
+			BufferProxy proxy;
 			try {
 				System.setOut(new PrintStream(new FileOutputStream("test.txt")));
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			for(int i=0;i<1000;i++){
-				new Consumer(m,500).start();
-				new Producer(m,500).start();
+			proxy = new BufferProxy(buffer);
+			producers = new ArrayList<Producer>();
+			consumers = new ArrayList<Consumer>();
+			int j=1000;
+			for(int i=0;i<j;i++){
+				Producer p = new Producer(proxy,500);
+				producers.add(p);
+				Consumer c = new Consumer(proxy,500);
+				consumers.add(c);
 			}
-		}
-		else{
+			for(int i=0;i<j;i++){
+				producers.get(i).start();
+				consumers.get(i).start();
+			}
+		
+		
 			try {
 				System.setOut(new PrintStream(new FileOutputStream("result.txt")));
 			} catch (FileNotFoundException e1) {
@@ -30,7 +42,7 @@ public class Test {
 			}
 			try (BufferedReader reader = Files.newBufferedReader(Paths.get("test.txt"))) {
 			    String line = null;
-			    int i=1000;
+			    int i=2000;
 			    while ((line = reader.readLine()) != null) {
 			    	String tmp[] = line.split(" ");
 			    	BigInteger result=BigInteger.valueOf(0);
@@ -44,7 +56,7 @@ public class Test {
 			} catch (IOException x) {
 			    System.err.format("IOException: %s%n", x);
 			}
-		}
+		
 		
 	}
 }

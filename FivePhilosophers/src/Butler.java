@@ -17,6 +17,6 @@ public class Butler {
 	}
 	public synchronized  void up(){
 		n++;
-		notifyAll();
+		notify();
 	}
 }
